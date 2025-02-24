@@ -1,8 +1,11 @@
 import multer from "multer"
 import { uniqueId } from "../utils/uniqueIdGenerator";
 import { NextFunction, Request, Response } from "express";
-
+import fs from "fs"
 const conifg = () => {
+    if(!fs.existsSync('../uploads/')){
+        fs.mkdirSync('../uploads/');
+    }
     const storage = multer.diskStorage({
         destination  : function(req , file  , cb){
             cb(null , '../uploads/')
