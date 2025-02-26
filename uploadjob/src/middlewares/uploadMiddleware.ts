@@ -40,7 +40,7 @@ export const S3uploader  = (fieldName : string) => {
                     Bucket: BUCKET_NAME,
                     Key: fileName,
                     Body: req.file.buffer,
-                    ContentType: req.file.mimetype
+                    ContentType: req.file.mimetype,
                 };
                 
                 const command = new PutObjectCommand(params);

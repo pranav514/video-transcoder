@@ -2,7 +2,22 @@ import redis, { createClient } from "redis"
 import dotenv from "dotenv"
 import { S3Client } from "@aws-sdk/client-s3";
 dotenv.config();
-export const client =  createClient();
+// export const client =  createClient();
+let redisClient : ReturnType<typeof createClient> | null = null;
+export const getClient = async() => {
+    if(!redisClient){
+        try{
+            redisClient = createClient();
+            await redisClient.connect()
+            console.log("connected to the redis succesfully")
+        }catch(error){
+            console.log(error);
+        }
+
+
+    }
+    return redisClient
+}
 if (!process.env.AWS_REGION || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
     throw new Error('AWS credentials are not properly configured in environment variables');
 }
