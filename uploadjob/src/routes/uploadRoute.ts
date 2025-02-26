@@ -17,6 +17,7 @@ if(!client){
     throw new Error("could not connect to the client")
 }
     await client.lPush('videoQueue' , JSON.stringify({id , uploadedVideoPath , outputPath}))
+    
     res.status(200).json({
         message : "video uploaded sucessfully",
         videoId : id,
