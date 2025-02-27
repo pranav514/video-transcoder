@@ -1,8 +1,6 @@
 import { NextFunction, Request , Response } from "express";
 import { createClient } from "redis";
 import { getClient } from "../config";
-// const client = createClient();
-// client.connect();
 const MAX_TOKEN = 5;
 setInterval(async () => {
     const client = await getClient();
