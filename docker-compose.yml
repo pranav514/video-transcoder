@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  redis:
+    image : redis:latest
+    container_name: redis
+    restart : always
+    ports:
+      - "6379:6379"
+  upload-job:
+    build:
+      context: .
+      dockerfile: uploadjob/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./uploadjob:/app
+    depends_on:
+      - redis
+
+
+  transcoding-service:
+    build:
+      context: .
+      dockerfile: transcoding-service/Dockerfile
+    volumes:
+      - ./transcoding-service:/app
+    depends_on:
+      - redis
